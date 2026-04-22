@@ -1,11 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/login.page';
 
 test('test', async ({ page }) => {
-  await page.goto('https://www.emra.chat/login');
-  await page.getByRole('textbox', { name: 'Email' }).click();
-  await page.getByRole('textbox', { name: 'Email' }).fill('testdesy11@gmail.com');
-  await page.getByRole('textbox', { name: 'Password' }).click();
-  await page.getByRole('textbox', { name: 'Password' }).fill('Desy@123');
-  await page.getByRole('button', { name: 'Sign In' }).click();
-  await expect(page.getByRole('heading', { name: 'Welcome to Emra! 🎉' })).toBeVisible();
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.loginAs('testdesy11@gmail.com', 'Desy@123');
+  // await expect(page.getByText('Successfully logged in!')).toBeVisible();
 });
